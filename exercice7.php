@@ -9,21 +9,45 @@
 
 class Person
 {
-    
-
     public function __construct(protected string $firstName, protected string $lastName)
     {
-
     }
+
     public function getFirstName(): string { return $this->firstName; }
     public function setFirstName(string $firstName): void { $this->firstName = $firstName; }
     public function getLastName(): string { return $this->lastName; }
     public function setLastName(string $lastName): void { $this->lastName = $lastName; }
-    public function getAge(): int { return $this->age; }
-    public function setAge(int $age): void { $this->age = $age; }
 }
 
-$person = new Person("Alice", "Martin");
-echo $person->getFirstName() . " " . $person->getLastName() . "<br>";
+class Student extends Person
+{
+    protected string $numeroEtudiant;
+    protected string $ecole;
+    protected string $classe;
 
+    public function __construct(string $prenom, string $nom, string $numeroEtudiant, string $ecole, string $classe)
+    {
+        parent::__construct($prenom, $nom);
+        $this->numeroEtudiant = $numeroEtudiant;
+        $this->ecole = $ecole;
+        $this->classe = $classe;
+    }
 
+    public function getNumeroEtudiant() { return $this->numeroEtudiant; }
+    public function setNumeroEtudiant($num) { $this->numeroEtudiant = $num; }
+    public function getEcole(): string { return $this->ecole; }
+    public function setEcole(string $ecole) { $this->ecole = $ecole; }
+    public function getClasse(): string { return $this->classe; }
+    public function setClasse($classe) { $this->classe = $classe; }
+
+    public function displayStudent()
+    {
+        echo "Nom : " . $this->firstName . " " . $this->lastName . "<br>";
+        echo "N° étudiant : " . $this->numeroEtudiant . "<br>";
+        echo "École : " . $this->ecole . "<br>";
+        echo "Classe : " . $this->classe . "<br>";
+    }
+}
+
+$etudiant = new Student("Jean", "Nugue", "11616", "school of scool de school", "B3 Dev");
+$etudiant->displayStudent();

@@ -5,27 +5,36 @@
  * Refactorisez ce code en créant une classe ShoppingCart avec des méthodes équivalentes.
  */
 
-$cart = [];
+class ShoppingCart
+{
+    protected array $panier = [];
 
-function addItem(array &$cart, string $name, float $price) {
-    $cart[] = ['name' => $name, 'price' => $price];
-}
-
-function getTotal(array $cart): float {
-    $total = 0;
-    foreach ($cart as $item) {
-        $total += $item['price'];
+    public function ajouterArticle($nom, $prix)
+    {
+        $this->panier[] = ['nom' => $nom, 'prix' => $prix];
     }
-    return $total;
-}
 
-function displayCart(array $cart) {
-    foreach ($cart as $item) {
-        echo $item['name'] . " : " . $item['price'] . " €\n";
+    public function getTotal(): float
+    {
+        $total = 0;
+        foreach ($this->panier as $article)
+        {
+            $total += $article['prix'];
+        }
+        return $total;
+    }
+
+    public function afficherPanier()
+    {
+        foreach ($this->panier as $article)
+        {
+            echo $article['nom'] . " : " . $article['prix'] . " €<br>";
+        }
     }
 }
 
-addItem($cart, "Livre", 12.5);
-addItem($cart, "Stylo", 2.3);
-displayCart($cart);
-echo "Total : " . getTotal($cart) . " €\n";
+$panier = new ShoppingCart();
+$panier->ajouterArticle("un chien", 12.5);
+$panier->ajouterArticle("un raton laveur", 2.3);
+$panier->afficherPanier();
+echo "Total : " . $panier->getTotal() . " € (très chère pour des bestioles)";
